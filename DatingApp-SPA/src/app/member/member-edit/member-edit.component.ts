@@ -14,6 +14,7 @@ import { NgForm } from '@angular/forms';
 export class MemberEditComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm;
   user: User;
+  photoUrl : string;
   @HostListener('window:beforeunload', ['$event']) // this will let the browser sent a confirm dialog to user to exit while editing the form
   unloadNotification($event: any) {
     if (this.editForm.dirty) {
@@ -27,6 +28,9 @@ export class MemberEditComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.user = data['user'];
     });
+    this.authService.currentPhotoUrl.subscribe(url => {
+      this.photoUrl = url;
+    });
   }
 
   updateUser() {
@@ -36,6 +40,10 @@ export class MemberEditComponent implements OnInit {
     }, error => {
       this.alertify.error(error);
     });
+  }
+
+  updateMainPhoto(url){
+      this.user.photoUrl = url;
   }
 
 }
