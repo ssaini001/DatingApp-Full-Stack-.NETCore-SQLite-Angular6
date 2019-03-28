@@ -16,7 +16,7 @@ import { ValueComponent } from './value/value.component';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
-import { BsDropdownModule, TabsModule, BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule, BsDatepickerModule, PaginationModule, ButtonsModule } from 'ngx-bootstrap';
 import { MemberListComponent } from './member/member-list/member-list.component';
 import { ListComponent } from './list/list.component';
 import { MessagesComponent } from './messages/messages.component';
@@ -59,6 +59,8 @@ export function tokenGetter() {
       BsDropdownModule.forRoot(),
       TabsModule.forRoot(),
       BsDatepickerModule.forRoot(),
+      PaginationModule.forRoot(),
+      ButtonsModule.forRoot(),
       RouterModule.forRoot(appRoutes),           // appRoutes coming from routes.ts
       FileUploadModule,
       JwtModule.forRoot({
