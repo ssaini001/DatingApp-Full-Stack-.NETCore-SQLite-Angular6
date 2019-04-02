@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { Routes } from '@angular/router';
 import { ListComponent } from './list/list.component';
 import { MemberDetailComponent } from './member/member-detail/member-detail.component';
+import { ListsResolver } from './_resolvers/lists.resolvers';
 
 export const appRoutes: Routes = [
     {path: '', component: HomeComponent},
@@ -25,7 +26,7 @@ export const appRoutes: Routes = [
              canDeactivate: [PreventUnsavedChanges]
             },
             {path: 'messages', component: MessagesComponent},
-            {path: 'list', component: ListComponent}
+            {path: 'list', component: ListComponent , resolve: {users: ListsResolver} }
         ]
     },
     {path: '**', redirectTo: '', pathMatch: 'full'}

@@ -23,7 +23,7 @@ export class UserService {
 
 constructor(private http: HttpClient) { }
 
-getUsers(page?, itemsPerPage?, userPagingParams?): Observable<PaginatedResult<User[]>> {
+getUsers(page?, itemsPerPage?, userPagingParams?, likesParams?): Observable<PaginatedResult<User[]>> {
   const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
 
   let params = new HttpParams();
@@ -32,12 +32,20 @@ getUsers(page?, itemsPerPage?, userPagingParams?): Observable<PaginatedResult<Us
       params = params.append('pageSize', itemsPerPage);
   }
 
-  if(userPagingParams !=null){
+  if ( userPagingParams != null ) {
     params = params.append('minAge', userPagingParams.minAge);
     params = params.append('maxAge', userPagingParams.maxAge);
     params = params.append('gender', userPagingParams.gender);
-    params = params.append('orderBy', userPagingParams.orderBy)
+    params = params.append('orderBy', userPagingParams.orderBy);
 
+  }
+
+  if (likesParams === 'Likers'){
+    params = params.append('likers', 'true');
+  }
+
+  if (likesParams === 'Likees'){
+    params = params.append('likees', 'true');
   }
 
   return this.http.get<User[]>(this.baseUrl + 'users',{observe:'response', params})
@@ -68,6 +76,10 @@ setMainPhoto(userId: number , id: number) {
 
 deletePhoto(userId : number, id:number){
     return this.http.delete(this.baseUrl+'users/'+userId+'/photos/'+id);
+}
+
+sendLike(id:number, recipientId: number){
+  return this.http.post(this.baseUrl + 'users/' +id + '/like/' + recipientId, {});
 }
 
 }
